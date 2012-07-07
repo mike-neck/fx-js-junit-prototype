@@ -1,0 +1,47 @@
+apply plugin : 'groovy'
+apply plugin : 'idea'
+
+group = 'org.mikeneck.jsjunit'
+version = '0.1'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+    mavenCentral ()
+}
+
+def jfxrt = System.properties['os.name'].contains('Windows')? 'lib/jfxrt.jar' : 'jre/lib/jfxrt.jar'
+
+dependencies {
+    compile ('org.eclipse.jetty:jetty-server:8.1.3.v20120416') {
+        exclude module : 'javax.servlet'
+    }
+    compile 'org.jboss.spec.javax.servlet:jboss-servlet-api_3.0_spec:1.0.1.Final'
+    compile 'org.slf4j:slf4j-api:1.6.4'
+    compile 'org.slf4j:slf4j-log4j12:1.6.4'
+    compile 'log4j:log4j:1.2.16'
+    compile ('junit:junit:4.+') {
+        exclude module : 'hamcrest'
+    }
+
+    compile files ("${System.env['JAVAFX_HOME']}/${jfxrt}")
+
+    groovy 'org.codehaus.groovy:groovy:1.8.6'
+
+    testCompile 'org.hamcrest:hamcrest-library:1.2.1'
+    testCompile 'org.apache.httpcomponents:httpclient:4.1.3'
+    testCompile 'org.apache.httpcomponents:httpcore:4.2'
+}
+
+task structure << {
+    ['main', 'test'].collect { target ->
+        def list = ['java','groovy'].collect { code ->
+            "src/${target}/${code}/${project.group.replace('.', '/')}"
+        }
+        list << "src/${target}/resources"
+        list
+    }.flatten().each {
+        ant.mkdir dir : it
+    }
+}

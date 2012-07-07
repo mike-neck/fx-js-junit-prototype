@@ -1,0 +1,70 @@
+h2. fx-js-junit-prototype
+
+fx-js-junit-prototype is a prototype for FxJsJUnit.
+see "FxJsJUnit":https://github.com/mike-neck/FxJsJUnit
+
+h2. Requirements
+
+* JavaFX2.0 or later
+* Java7 or later
+* Groovy 1.8.6 or later
+* JUnit 4.10 or later
+* Gradle 1.0 or later
+
+You can use this library for unit testing javascript.
+Make sure that your <code>JAVAFX_HOME</code> environmental variable is set.
+
+for example
+<code><pre># for windows
+echo %JAVAFX_HOME%
+"C:¥Program Files¥Oracle¥JavaFX 2.1 SDK"
+
+# for mac
+echo $JAVAFX_HOME
+/Library/Java/JavaVirtualMachines/1.7.0.jdk/Contents/Home
+</pre></code>
+
+h2. Usage
+
+Add jar to your project path.
+
+Write your test
+example <code>SampleTest.groovy</code>
+<code><pre>class SampleTest {
+    @ClassRule
+    static public UseFxWebView fxWebView = UseFxWebView.defaultServer().identifiedBy('JsJUnitTest').get()
+
+    JsJUnit tester
+
+    @Before
+    void setUp () {
+        tester = fxWebView.getJsTester()
+    }
+
+    @Test
+    void testNumber () {
+        assert tester.callAsDouble('numberTest(0.1, 0.01)') == 0.11
+        assert tester.callAsInt('numberTest("a", 1)') == 0
+    }
+
+}
+</pre></code>
+
+h2. License
+
+<pre><code> Copyright 2012- @mike_neck
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+</code></pre>
+

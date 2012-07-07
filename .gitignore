@@ -1,0 +1,12 @@
+# for idea files
+
+out/
+*.iml
+*.ipr
+*.iws
+
+# for gradle files
+
+.gradle/
+build/
+
