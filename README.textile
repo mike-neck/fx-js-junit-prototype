@@ -14,15 +14,15 @@ h2. Requirements
 You can use this library for unit testing javascript.
 Make sure that your <code>JAVAFX_HOME</code> environmental variable is set.
 
-for example
-<code><pre># for windows
-echo %JAVAFX_HOME%
+for windows
+<code><pre>echo %JAVAFX_HOME%
 "C:¥Program Files¥Oracle¥JavaFX 2.1 SDK"
+</code></pre>
 
-# for mac
-echo $JAVAFX_HOME
+for mac
+<pre><code>echo $JAVAFX_HOME
 /Library/Java/JavaVirtualMachines/1.7.0.jdk/Contents/Home
-</pre></code>
+</code></pre>
 
 h2. Usage
 
@@ -30,7 +30,8 @@ Add jar to your project path.
 
 Write your test
 example <code>SampleTest.groovy</code>
-<code><pre>class SampleTest {
+
+<pre><code>class SampleTest {
     @ClassRule
     static public UseFxWebView fxWebView = UseFxWebView.defaultServer().identifiedBy('JsJUnitTest').get()
 
@@ -48,7 +49,7 @@ example <code>SampleTest.groovy</code>
     }
 
 }
-</pre></code>
+</code></pre>
 
 h2. License
 
